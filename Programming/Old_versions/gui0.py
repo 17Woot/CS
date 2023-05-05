@@ -8,7 +8,7 @@
 from tkinter import *
 from tkinter import messagebox
 
-from Programming.log_in0 import *
+from Programming.Old_versions.log_in0 import *
 from Programming.myvalidation import *
 from Programming.myencryption import *
 
@@ -27,38 +27,33 @@ class Gui(object): # create gui object
 
         # place username label and entry box in middle of screen
         self.username_label = Label(self.root, text="Username:", bg="white")
-        self.username_label.grid(row=0, column=0, padx=10, pady=10)
-        self.username_label.place(relx=0.5, rely=0.5, anchor=CENTER)
-
-
-
-
+        self.username_label.grid(row=1, column=1, padx=10, pady=10)
 
 
         self.username_entry = Entry(self.root, width=20)
 
-        self.username_entry.grid(row=0, column=1, padx=10, pady=10)
+        self.username_entry.grid(row=1, column=1, padx=10, pady=10)
 
 
         self.password_label = Label(self.root, text="Password:", bg="white")
-        self.password_label.grid(row=1, column=0, padx=10, pady=10)
+        self.password_label.grid(row=1, column=1, padx=10, pady=10)
 
 
         self.password_entry = Entry(self.root, width=20, show="*")
         self.password_entry.grid(row=1, column=1, padx=10, pady=10)
 
 
-        self.log_in_button = Button(self.root, text="Log In", command=self.log_in_button_pressed)
-        self.log_in_button.grid(row=2, column=0, padx=10, pady=10)
+        self.log_in_button = Button(self.root, width=10, text="Log In", command=self.log_in_button_pressed)
+        self.log_in_button.grid(row=1, column=4, padx=10, pady=10)
 
 
-        self.clear_button = Button(self.root, text="Clear", command=self.clear_button_pressed)
-        self.clear_button.grid(row=2, column=1, padx=10, pady=10)
+        self.clear_button = Button(self.root, width=10, text="Clear", command=self.clear_button_pressed)
+        self.clear_button.grid(row=1, column=2, padx=10, pady=10)
 
-        self.exit_button = Button(self.root, text="Exit", command=self.root.destroy)
-        self.exit_button.grid(row=3, column=0, padx=10, pady=10)
+        self.exit_button = Button(self.root,width=10, text="Exit", command=self.root.destroy)
+        self.exit_button.grid(row=1, column=1, padx=10, pady=10)
 
-
+        print(self.root.grid_size())
         self.root.mainloop()
 
     def log_in_button_pressed(self):
