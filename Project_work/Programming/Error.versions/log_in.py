@@ -4,9 +4,8 @@
 # log in module                                #
 ################################################
 
-from Programming.myvalidation import Validator
-from Programming.mydatabase import User_Database
-from Programming.myencryption import Encryption
+from Project_work.Programming.myvalidation import Validator
+from Project_work.Programming.myencryption import Encryption
 from
 class LogIn(object):  # create log in object
     def __init__(self):

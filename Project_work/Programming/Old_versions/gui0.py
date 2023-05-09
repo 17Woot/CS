@@ -8,9 +8,9 @@
 from tkinter import *
 from tkinter import messagebox
 
-from Programming.Old_versions.log_in0 import *
-from Programming.myvalidation import *
-from Programming.myencryption import *
+from Project_work.Programming.Old_versions.log_in0 import *
+from Project_work.Programming.myvalidation import *
+from Project_work.Programming.myencryption import *
 
 class Gui(object): # create gui object
     def __init__(self):

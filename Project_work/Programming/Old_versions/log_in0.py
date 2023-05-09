@@ -4,8 +4,8 @@
 # log in module without using database for testing #
 ####################################################
 
-from Programming.myvalidation import Validator
-from Programming.myencryption import Encryption
+from Project_work.Programming.myvalidation import Validator
+from Project_work.Programming.myencryption import Encryption
 
 
 class LogIn(object):  # create log in object
