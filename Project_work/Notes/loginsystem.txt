@@ -1,0 +1,70 @@
+log in and accounts systems
+
+-Log in should not have a sign-up function, will be a privately accessed site for people who are given an account
+-------------------------------------------
+
+option 1
+-one account, everyone uses same username and password
+
+option 2
+-each user has their own username and password
+-accounts created by an admin user
+-change password function for users
+
+--------------------------------------
+
+-option 2 is preferable for A/A*
+
+
+option 2
+------------------------------------
+
+UI
+-tkinter
+-ui.py
+-log in
+-main menu
+
+
+------------------------------------
+
+Database
+-class
+-database.py
+
+-----------------------------------
+
+Log in
+-class
+-log_in.py
+
+
+-----------------------------------
+
+Algorithm
+-set attempts to 0
+-enter username + password
+-get username + password from database
+-compare
+-Match
+    > no
+    -error message
+    -attempt += 1
+    -Match
+        >attempts<3
+        -try again
+        >attempts>3
+        -block
+    > yes
+    -continue
+- check isAdmin
+-Match
+    >isAdmin == True
+    -show admin menu
+    >isAdmin == False
+    -show user menu
+
+
+
+
+
