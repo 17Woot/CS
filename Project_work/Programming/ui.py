@@ -9,12 +9,13 @@ from myvalidation import *
 from database import *
 from tkinter import *
 from Themesfile import *
+from tkinter import messagebox
 
 class Ui(object): # create ui object
     def __init__(self):
         self.validator = Validator()
         self.log_in = LogIn()
-        self.database = Database()
+        self.database = log_in_db()
 
         self.root = Tk()  # create root
         self.root.title("Main Menu")  # set title
@@ -37,6 +38,9 @@ class Ui(object): # create ui object
         self.log_in_button = Button(self.root, width=10, text="Log In", command=self.log_in_button_pressed, font=t1.font)
         self.log_in_button.grid(row=3, column=1, padx=10, pady=10)
 
+        self.register_button = Button(self.root, width=10, text="Register", command=self.register_button_pressed, font=t1.font)
+        self.register_button.grid(row=4, column=1, padx=10, pady=10)
+
         self.clear_button = Button(self.root, width=10, text="Clear", command=self.clear_button_pressed, font=t1.font)
         self.clear_button.grid(row=3, column=2, padx=10, pady=10)
 
@@ -50,10 +54,37 @@ class Ui(object): # create ui object
 
     def log_in_button_pressed(self):
         l = LogIn()
+        user = self.username_entry.get()
+        passw = self.password_entry.get()
+        if l.log_in(user, passw) == True:
+            messagebox.showinfo("Log In", "You have logged in")
+        else:
+            messagebox.showerror("Log In", "Incorrect username or password")
+
+    def register_button_pressed(self):
+        l = LogIn()
+        user = self.username_entry.get()
+        passw = self.password_entry.get()
+        if log_in_db.user_exists(user) == True:
+            messagebox.showerror("Register", "Username already exists")
+        elif l.add_user(user, passw) == True:
+            messagebox.showinfo("Register", "You have registered")
+        else:
+            messagebox.showerror("Register", "Incorrect username or password")
+
+
+
+        
+            
+
+
+
+
 
 
     def clear_button_pressed(self):
-        pass
+        self.username_entry.delete(0, END)
+        self.password_entry.delete(0, END)
 
 
 

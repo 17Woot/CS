@@ -22,7 +22,7 @@ class log_in_db(object):
             return False
 
     # _____________ method to insert data into the table _________________________________
-    def insertData(self, givenUser, givenPassword):
+    def add_user(self, givenUser, givenPassword):
 
         try:
             conn = sqlite3.connect('accounts.db')
@@ -101,7 +101,7 @@ class log_in_db(object):
 if __name__ == "__main__":
     myDB = log_in_db()
     myDB.createTable()
-    myDB.insertData("reece", "reece")
+    myDB.add_user("reece", "reece123")
 
 
 
