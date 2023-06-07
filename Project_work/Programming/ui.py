@@ -63,22 +63,16 @@ class Ui(object): # create ui object
 
     def register_button_pressed(self):
         l = LogIn()
+        d = log_in_db()
         user = self.username_entry.get()
         passw = self.password_entry.get()
-        if log_in_db.user_exists(user) == True:
+        if d.user_exists(user) == True:
             messagebox.showerror("Register", "Username already exists")
+            
         elif l.add_user(user, passw) == True:
             messagebox.showinfo("Register", "You have registered")
         else:
             messagebox.showerror("Register", "Incorrect username or password")
-
-
-
-        
-            
-
-
-
 
 
 

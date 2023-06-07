@@ -34,6 +34,19 @@ class log_in_db(object):
             return True
         except:
             return False
+        
+    # _____________ method to check if user exists _________________________________
+    def user_exists(self, givenUser):
+        try:
+            conn = sqlite3.connect('accounts.db')
+            cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
+            for row in cursor:
+                if row[0] == givenUser:
+                    return True
+                else:
+                    return False
+        except:
+            return False
 
     # _____________ method to show all records stored in the table tables _________________________________
 
@@ -99,9 +112,7 @@ class log_in_db(object):
     # ______________  TESTING ALL ABOVE _________________________
 
 if __name__ == "__main__":
-    myDB = log_in_db()
-    myDB.createTable()
-    myDB.add_user("reece", "reece123")
+    pass
 
 
 
