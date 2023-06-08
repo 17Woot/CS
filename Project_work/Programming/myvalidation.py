@@ -30,11 +30,15 @@ class Validator(object):  # create validator object
             return False
 
     def is_valid_email(self,email): # is email valid using try except
+        from validate_email_address import validate_email
+        isvalid = validate_email(email)
         try:
-            if re.match(r"[^@]+@[^@]+\.[^@]+", email):
-                return True
-            else:
-                return False
+            if isvalid == True:
+                isExists = validate_email(email, verify=True)
+                if isExists == True:
+                    return True
+                else:
+                    return False
         except:
             return False  # if email is not valid return false
 
@@ -61,7 +65,8 @@ class Validator(object):  # create validator object
 
 
 if __name__ == '__main__':
-    pass
+    v = Validator()
+    print(v.is_valid_email("reecewootley@gmail.com"))
 
 
 

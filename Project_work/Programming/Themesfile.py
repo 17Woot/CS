@@ -5,3 +5,4 @@ class Themes():
         self.bgcolour = givenBgColour
 
 
+t1 = Themes("arial", 12, "black", "white")

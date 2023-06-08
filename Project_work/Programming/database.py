@@ -4,16 +4,17 @@
 # user database module using sql               #
 ################################################
 import sqlite3
-class log_in_db(object):
+class Db(object):
     # _____________ method to create tables _________________________________
-    def createTable(self):
+    def create_table(self):
         try:
             conn = sqlite3.connect('accounts.db')
             # print("Opened database successfully")
 
             conn.execute('''CREATE TABLE IF NOT EXISTS USERS 
                            (UserName      TEXT     PRIMARY KEY     NOT NULL,
-                            password      TEXT    NOT NULL);''')
+                            password      TEXT    NOT NULL,
+                            admin_status  BOOLEAN DEFAULT FALSE     NOT NULL)''')
 
             # print("Users Accounts Table is created successfully")
             conn.close()
@@ -22,16 +23,19 @@ class log_in_db(object):
             return False
 
     # _____________ method to insert data into the table _________________________________
-    def add_user(self, givenUser, givenPassword):
+    def add_user(self, givenUser, givenPassword, admin_status = False):
 
         try:
-            conn = sqlite3.connect('accounts.db')
-            # insert data into database table
-            conn.execute('''insert into USERS  (UserName, password) values (?, ?)''',
-                         (givenUser, givenPassword))
-            conn.commit()  # do not forget to commit the data (i.e. save the data on the table
-            conn.close()
-            return True
+            if self.user_exists(givenUser) == True:
+                return False
+            else:
+                conn = sqlite3.connect('accounts.db')
+                # insert data into database table
+                conn.execute('''insert into USERS  (UserName, password) values (?, ?)''',
+                             (givenUser, givenPassword))
+                conn.commit()  # do not forget to commit the data (i.e. save the data on the table
+                conn.close()
+                return True
         except:
             return False
         
@@ -47,6 +51,34 @@ class log_in_db(object):
                     return False
         except:
             return False
+
+    # ------------- method to check if password is correct ------------------------
+    def password_correct(self, givenUser, givenPassword):
+        try:
+            conn = sqlite3.connect('accounts.db')
+            cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
+            for row in cursor:
+                if row[0] == givenUser and row[1] == givenPassword:
+                    return True
+                else:
+                    return False
+        except:
+            return False
+
+    # ------------ method to check if user is admin -------------------------------
+    def is_admin(self, givenUser):
+        try:
+            conn = sqlite3.connect('accounts.db')
+            cursor = conn.execute(''' SELECT UserName, admin_status FROM  USERS ''')
+            for row in cursor:
+                if row[0] == givenUser and row[1] == True:
+                    return True
+                else:
+                    return False
+        except:
+            return False
+
+
 
     # _____________ method to show all records stored in the table tables _________________________________
 
@@ -74,6 +106,7 @@ class log_in_db(object):
             return True
         except:
             return False
+
 
     # _____________ method to Update password _________________________________
     def updatePassword(self, givenUser, newPassword):
