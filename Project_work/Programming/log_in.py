@@ -15,6 +15,7 @@ class log_in_ui(object): # create ui object
     def __init__(self):
         self.validator = Validator()
         self.database = Db()
+        self.database.create_table()
 
         self.root = Tk()  # create root
         self.root.title("Log in")  # set title
@@ -53,12 +54,10 @@ class log_in_ui(object): # create ui object
             if self.validator.is_valid_length_range(user, 5, 20) and self.validator.is_valid_length_range(password, 5, 20):
                 if self.database.user_exists(user):
                     if self.database.password_correct(user, password):
-                        if self.database.admin_status(user) == True:
+                        if self.database.is_admin(user) == True:
                             messagebox.showinfo("Success", "Welcome Admin")
-                            self.root.destroy()
                         else:
                             messagebox.showinfo("Success", "Welcome")
-                            self.root.destroy()
 
                     else:
                         messagebox.showerror("Error 1.1", "Incorrect password")
@@ -67,7 +66,7 @@ class log_in_ui(object): # create ui object
             else:
                 messagebox.showerror("Error 1.3", "Username and password must be between 5 and 20 characters")
         except Exception as e:
-            messagebox.showerror("Error 1.4", e)
+            messagebox.showerror("Error 1.4", "Something went wrong")
 
 
 
@@ -82,10 +81,6 @@ if __name__ == "__main__":
     # create gui object
     t1 = Themes("arial", 12, "black", "white")
     win = log_in_ui()
-
-
-
-
 
 
 

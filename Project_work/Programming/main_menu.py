@@ -8,18 +8,19 @@ from tkinter import messagebox
 from myvalidation import Validator
 from database import Db
 
-class main_menu_ui():
+class Main_menu():
     def __init__(self):
         self.validator = Validator()
         self.database = Db()
 
         self.root = Tk()  # create root
-        self.root.title("Log in")  # set title
+        self.root.title("Main menu")  # set title
         self.root.geometry("500x500")  # set size
         self.root.resizable(False, False)  # make not resizable
         self.root.configure(background="white")  # set background colour
+        self.root.mainloop()
 
 
 
 if __name__ == "__main__":
-    win = main_menu_ui()
+    win = Main_menu()

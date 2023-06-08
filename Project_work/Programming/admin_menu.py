@@ -10,7 +10,7 @@ class Admin_menu():
         self.database = Db()
 
         self.root = Tk()  # create root
-        self.root.title("Log in")  # set title
+        self.root.title("Admin Menu")  # set title
         self.root.geometry("500x500")  # set size
         self.root.resizable(False, False)  # make not resizable
         self.root.configure(background="white")  # set background colour
@@ -59,6 +59,10 @@ class Admin_menu():
     def clear_button_pressed(self):
         self.username_entry.delete(0, END)
         self.password_entry.delete(0, END)
+
+
+if __name__ == "__main__":
+    a = Admin_menu()
 
 
 

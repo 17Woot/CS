@@ -13,18 +13,17 @@ class Db(object):
 
             conn.execute('''CREATE TABLE IF NOT EXISTS USERS 
                            (UserName      TEXT     PRIMARY KEY     NOT NULL,
-                            password      TEXT    NOT NULL,
-                            admin_status  BOOLEAN DEFAULT FALSE     NOT NULL)''')
+                            password      TEXT    NOT NULL )''')
 
             # print("Users Accounts Table is created successfully")
             conn.close()
+            self.add_user("admin", "admin")
             return True
         except:
             return False
 
     # _____________ method to insert data into the table _________________________________
-    def add_user(self, givenUser, givenPassword, admin_status = False):
-
+    def add_user(self, givenUser, givenPassword):
         try:
             if self.user_exists(givenUser) == True:
                 return False
@@ -39,6 +38,7 @@ class Db(object):
         except:
             return False
         
+    
     # _____________ method to check if user exists _________________________________
     def user_exists(self, givenUser):
         try:
@@ -51,6 +51,7 @@ class Db(object):
                     return False
         except:
             return False
+       
 
     # ------------- method to check if password is correct ------------------------
     def password_correct(self, givenUser, givenPassword):
@@ -69,9 +70,9 @@ class Db(object):
     def is_admin(self, givenUser):
         try:
             conn = sqlite3.connect('accounts.db')
-            cursor = conn.execute(''' SELECT UserName, admin_status FROM  USERS ''')
+            cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
-                if row[0] == givenUser and row[1] == True:
+                if row[0] == givenUser and row[1] == "admin":
                     return True
                 else:
                     return False
