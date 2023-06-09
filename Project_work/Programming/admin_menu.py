@@ -44,7 +44,7 @@ class Admin_menu():
         except:
             messagebox.showerror("Error", "Something went wrong")
 
-    def register(self, user, password, admin_status = False):
+    def register(self, user, password):
         try:
             if self.validator.is_valid_length_range(user, 5, 20) and self.validator.is_valid_length_range(password, 5,20):
                 if self.database.add_user(user, password):

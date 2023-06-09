@@ -46,12 +46,12 @@ class log_in_ui(object): # create ui object
 
         self.root.mainloop()  # run root
 
-
-    def log_in_button_pressed(self):
+    def log_in(self, username, password):
         try:
             user = self.username_entry.get()
             password = self.password_entry.get()
-            if self.validator.is_valid_length_range(user, 5, 20) and self.validator.is_valid_length_range(password, 5, 20):
+            if self.validator.is_valid_length_range(user, 5, 20) and self.validator.is_valid_length_range(password, 5,
+                                                                                                          20):
                 if self.database.user_exists(user):
                     if self.database.password_correct(user, password):
                         if self.database.is_admin(user) == True:
@@ -65,6 +65,17 @@ class log_in_ui(object): # create ui object
                     messagebox.showerror("Error 1.2", "User does not exist")
             else:
                 messagebox.showerror("Error 1.3", "Username and password must be between 5 and 20 characters")
+        except Exception as e:
+            messagebox.showerror("Error 1.4", "Something went wrong")
+
+
+    def log_in_button_pressed(self):
+        try:
+            user = self.username_entry.get()
+            password = self.password_entry.get()
+            self.log_in(user, password)
+           
+
         except Exception as e:
             messagebox.showerror("Error 1.4", "Something went wrong")
 
