@@ -10,6 +10,8 @@ from database import *
 from tkinter import *
 from Themesfile import *
 from tkinter import messagebox
+from admin_menu import *
+from main_menu import *
 
 class log_in_ui(object): # create ui object
     def __init__(self):
@@ -48,16 +50,21 @@ class log_in_ui(object): # create ui object
 
     def log_in(self, username, password):
         try:
-            user = self.username_entry.get()
-            password = self.password_entry.get()
+            user = username
+            password = password
             if self.validator.is_valid_length_range(user, 5, 20) and self.validator.is_valid_length_range(password, 5,
                                                                                                           20):
                 if self.database.user_exists(user):
                     if self.database.password_correct(user, password):
                         if self.database.is_admin(user) == True:
                             messagebox.showinfo("Success", "Welcome Admin")
+                            self.root.destroy()
+                            a = Admin_menu()
+                            
                         else:
                             messagebox.showinfo("Success", "Welcome")
+                            self.root.destroy()
+                            mm = Main_menu()
 
                     else:
                         messagebox.showerror("Error 1.1", "Incorrect password")
