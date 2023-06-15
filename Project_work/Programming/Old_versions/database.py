@@ -8,7 +8,7 @@ class Db(object):
     # _____________ method to create tables _________________________________
     def create_table(self):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             # print("Opened database successfully")
 
             conn.execute('''CREATE TABLE IF NOT EXISTS USERS 
@@ -28,7 +28,7 @@ class Db(object):
             if self.user_exists(givenUser) == True:
                 return False
             else:
-                conn = sqlite3.connect('accounts.db')
+                conn = sqlite3.connect('../accounts.db')
                 # insert data into database table
                 conn.execute('''insert into USERS  (UserName, password) values (?, ?)''',
                              (givenUser, givenPassword))
@@ -42,7 +42,7 @@ class Db(object):
     # _____________ method to check if user exists _________________________________
     def user_exists(self, givenUser):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser:
@@ -56,7 +56,7 @@ class Db(object):
     # ------------- method to check if password is correct ------------------------
     def password_correct(self, givenUser, givenPassword):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser and row[1] == givenPassword:
@@ -69,7 +69,7 @@ class Db(object):
     # ------------ method to check if user is admin -------------------------------
     def is_admin(self, givenUser):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser and row[1] == "admin":
@@ -85,7 +85,7 @@ class Db(object):
 
     def showAllRecords(self):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             # Select all records in a table:
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
 
@@ -99,7 +99,7 @@ class Db(object):
     # _____________ method to delete a record from the table _________________________________
     def deleteRecord(self, givenuser):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             conn.execute("DELETE FROM USERS WHERE  UserName =?", (givenuser,))
             print("deleted")
             conn.commit()
@@ -112,7 +112,7 @@ class Db(object):
     # _____________ method to Update password _________________________________
     def updatePassword(self, givenUser, newPassword):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             conn.execute('''UPDATE USERS  SET password = ? WHERE UserName = ? ''', (newPassword, givenUser))
             conn.commit()
             conn.close()
@@ -121,7 +121,7 @@ class Db(object):
 
     # _____________ method to search for a user  _________________________________
     def searchUser(self, givenUser, givenpassword):
-        conn = sqlite3.connect('accounts.db')
+        conn = sqlite3.connect('../accounts.db')
         # Select all records in a table:
         cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
         for row in cursor:
@@ -132,7 +132,7 @@ class Db(object):
     # _____________ method to create table dictionary _________________________________
     def createDictionary(self):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('../accounts.db')
             cursor = conn.execute('select * from USERS')  # you can change the table name to view the columns
             columns = cursor.description
             colnames = cursor.description  # Gets columns names

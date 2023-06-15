@@ -6,12 +6,12 @@
 
 
 from myvalidation import *
-from database import *
+from Project_work.Programming.Old_versions.database import *
 from tkinter import *
-from Themesfile import *
+from Project_work.Programming.Themesfile import *
 from tkinter import messagebox
 
-class log_in_ui(object): # create ui object
+class cls_log_in(object): # create ui object
     def __init__(self):
         self.validator = Validator()
         self.database = Db()
@@ -22,6 +22,9 @@ class log_in_ui(object): # create ui object
         self.root.geometry("500x500")  # set size
         self.root.resizable(False, False)  # make not resizable
         self.root.configure(background="white")  # set background colour
+
+        self.user = ""
+        self.password = ""
 
         self.username_label = Label(self.root, text="Username:", bg="white", font=t1.font)
         self.username_label.grid(row=1, column=1, padx=10, pady=10)
@@ -46,18 +49,22 @@ class log_in_ui(object): # create ui object
 
         self.root.mainloop()  # run root
 
-    def log_in(self, username, password):
+    def log_in(self):
         try:
             user = self.username_entry.get()
             password = self.password_entry.get()
+            self.user = user
+            self.password = password
             if self.validator.is_valid_length_range(user, 5, 20) and self.validator.is_valid_length_range(password, 5,
-                                                                                                          20):
+                                                                                           20):
                 if self.database.user_exists(user):
                     if self.database.password_correct(user, password):
-                        if self.database.is_admin(user) == True:
+                        if self.database.is_admin(user):
                             messagebox.showinfo("Success", "Welcome Admin")
+                            return 1
                         else:
                             messagebox.showinfo("Success", "Welcome")
+                            return 2
 
                     else:
                         messagebox.showerror("Error 1.1", "Incorrect password")
@@ -67,17 +74,17 @@ class log_in_ui(object): # create ui object
                 messagebox.showerror("Error 1.3", "Username and password must be between 5 and 20 characters")
         except Exception as e:
             messagebox.showerror("Error 1.4", "Something went wrong")
+            print(self.user)
+            print(e)
+
 
 
     def log_in_button_pressed(self):
         try:
-            user = self.username_entry.get()
-            password = self.password_entry.get()
-            self.log_in(user, password)
-           
-
+            self.log_in()
         except Exception as e:
-            messagebox.showerror("Error 1.4", "Something went wrong")
+            messagebox.showerror("Error 1.5", "Something went wrong")
+            print(e)
 
 
 
@@ -91,7 +98,7 @@ class log_in_ui(object): # create ui object
 if __name__ == "__main__":
     # create gui object
     t1 = Themes("arial", 12, "black", "white")
-    win = log_in_ui()
+    win = cls_log_in()
 
 
 
