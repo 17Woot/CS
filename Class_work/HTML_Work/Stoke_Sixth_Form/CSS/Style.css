@@ -1,0 +1,74 @@
+.header {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    background: #2a2a2a;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.navbar {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    background: #2a2a2a;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar_btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    background: #2a2a2a;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+
+}
+
+.navbar_btn:hover {
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+}
+
+#main_img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: -1;
+}
+
+#left_container {
+    width: 50%;
+    height: 100%;
+    float: left;
+    position: relative;
+    z-index: 1;
+}
+
+#right_container {
+    width: 50%;
+    height: 100%;
+    float: right;
+    position: relative;
+    z-index: 1;
+    background-color: grey
+}
