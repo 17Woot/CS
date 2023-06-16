@@ -1,0 +1,25 @@
+- Database object
+- Create Table
+- create admin
+
+- log in
+- first make it work without checking Database : if user = "admin" and password = "admin"
+- create blank window for admin menu and main menu
+
+- implement searching databse
+- open main menu
+
+- implement is admin
+- if isadmin open admin menu
+- create register function for admin menu
+
+- files:
+- project_login
+- project_db
+- project_menu
+- project_admin
+
+- naming styles
+- files: project.....
+- class: CLS......
+- method: mt.....
