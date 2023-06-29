@@ -5,8 +5,7 @@ from project_validation import CLS_Validator
 
 # main menu for normal users
 class CLS_Menu():
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self):
         self.validator = CLS_Validator()
         self.db = CLS_db()
         self.root = Tk()
