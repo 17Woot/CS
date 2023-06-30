@@ -15,39 +15,46 @@ class CLS_LogIn():  # create log in object
         self.db = CLS_db()
         self.root = ctk.CTk()
         self.root.title("Log In")
-        self.root.geometry("750x500")
+        self.root.geometry("750x550")
         self.root.resizable(False, False)
         self.root.attributes("-transparentcolor", "grey")
         self.dark = "#242526"
         self.root.config(bg=self.dark)
 
+        # create frames in a root
+        self.title_frame = Frame(self.root, bg=self.dark)
+        self.title_frame.pack(padx=10, pady=(40, 20))
+
+        self.frame1 = Frame(self.root, bg=self.dark)
+        self.frame1.pack(padx=10, pady=(0, 20))
 
 
-        # create widgets in a root
-        self.title_label = Label(self.root, text="Spring.io", font=ctk.CTkFont(size=40, weight="bold"))
-        self.title_label.pack(padx=10, pady=(40, 20))
+        # create widgets in frames
+
+        self.title_label = Label(self.title_frame, text="Spring.io", font=ctk.CTkFont(size=40, weight="bold"))
+        self.title_label.pack(padx=10, pady=(20, 20))
         self.title_label.configure(bg=self.dark, fg="white")
 
-        self.username_label = Label(self.root, text="Username:", font=ctk.CTkFont(size=20))
+        self.username_label = Label(self.frame1, text="Username:", font=ctk.CTkFont(size=20))
         self.username_label.pack(padx=10, pady=(20, 10))
 
-        self.username_entry = Entry(self.root, width=20, font=ctk.CTkFont(size=20))
+        self.username_entry = Entry(self.frame1, width=20, font=ctk.CTkFont(size=20))
         self.username_entry.pack(padx=10, pady=(0, 10))
 
-        self.password_label = Label(self.root, text="Password:", font=ctk.CTkFont(size=20))
+        self.password_label = Label(self.frame1, text="Password:", font=ctk.CTkFont(size=20))
         self.password_label.pack(padx=10, pady=(10, 10))
 
-        self.password_entry = Entry(self.root, width=20, font=ctk.CTkFont(size=20), show="*")
+        self.password_entry = Entry(self.frame1, width=20, font=ctk.CTkFont(size=20), show="*")
         self.password_entry.pack(padx=10, pady=(0, 10))
 
-        self.btn_login = Button(self.root, width=10, text="Log In", font=ctk.CTkFont(size=20), command=lambda: self.mt_login_pressed())
-        self.btn_login.configure(bg="white", fg="black", borderwidth=2, relief="solid")
+        self.btn_login = Button(self.frame1, width=10, text="Log In", font=ctk.CTkFont(size=20), command=lambda: self.mt_login_pressed())
+        #self.btn_login.configure(bg="white", fg="black",)
         self.btn_login.pack(padx=10, pady=(10, 10))
 
-        self.btn_clear = Button(self.root, width=10, text="Clear", font=ctk.CTkFont(size=20), command=lambda: self.mt_clear_button_pressed())
+        self.btn_clear = Button(self.frame1, width=10, text="Clear", font=ctk.CTkFont(size=20), command=lambda: self.mt_clear_button_pressed())
         self.btn_clear.pack(padx=10, pady=(10, 10))
 
-        self.btn_exit = Button(self.root, width=10, text="Exit", font=ctk.CTkFont(size=20), command=self.root.destroy)
+        self.btn_exit = Button(self.frame1, width=10, text="Exit", font=ctk.CTkFont(size=20), command=self.root.destroy)
         self.btn_exit.pack(padx=10, pady=(10, 10))
 
         self.root.mainloop()

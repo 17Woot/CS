@@ -9,7 +9,7 @@ class CLS_Menu():
         self.validator = CLS_Validator()
         self.db = CLS_db()
         self.root = Tk()
-        self.root.title("Admin Menu")
+        self.root.title("Spring.io")
         self.root.geometry("500x500")
         self.root.resizable(False, False)
         self.root.configure(background="light grey")
@@ -18,6 +18,15 @@ class CLS_Menu():
 
 
         self.root.mainloop()
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    CLS_Menu()
 
 
 

@@ -8,7 +8,7 @@ class CLS_db():
 
     def mt_createTable(self):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('accounts')
             conn.execute('''CREATE TABLE USERS
             (UserName TEXT PRIMARY KEY NOT NULL,
             password TEXT NOT NULL);''')
@@ -23,7 +23,7 @@ class CLS_db():
             if self.mt_user_exists(givenUser) == True:
                 return False
             else:
-                conn = sqlite3.connect('accounts.db')
+                conn = sqlite3.connect('accounts')
                 conn.execute('''insert into USERS  (UserName, password) values (?, ?)''',
                              (givenUser, givenPassword))
                 conn.commit()
@@ -34,7 +34,7 @@ class CLS_db():
         
     def mt_user_exists(self, givenUser):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('accounts')
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser:
@@ -46,7 +46,7 @@ class CLS_db():
         
     def mt_password_correct(self, givenUser, givenPassword):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('accounts')
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser and row[1] == givenPassword:
@@ -58,7 +58,7 @@ class CLS_db():
 
     def mt_isadmin(self, givenUser):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('accounts')
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser and row[1] == "admin":
@@ -70,7 +70,7 @@ class CLS_db():
 
     def mt_delete_user(self, givenUser):
         try:
-            conn = sqlite3.connect('accounts.db')
+            conn = sqlite3.connect('accounts')
             conn.execute('''DELETE FROM USERS WHERE UserName = ?''', (givenUser,))
             conn.commit()
             conn.close()
