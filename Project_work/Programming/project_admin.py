@@ -107,7 +107,7 @@ class CLS_AdminMenu():
                 else:
                     messagebox.showinfo("Error", " 1.1 User not registered")
             else:
-                messagebox.showinfo("Error", "1.2 User not registered")
+                messagebox.showinfo("Error", "1.2 User not registered, Ensure both Username and Password are between 5 and 20 characters")
         except:
             messagebox.showinfo("Error", "1.3 User not registered")
 

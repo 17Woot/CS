@@ -17,7 +17,6 @@ class CLS_LogIn():  # create log in object
         self.root.title("Log In")
         self.root.geometry("750x550")
         self.root.resizable(False, False)
-        self.root.attributes("-transparentcolor", "grey")
         self.dark = "#242526"
         self.root.config(bg=self.dark)
 
@@ -72,10 +71,13 @@ class CLS_LogIn():  # create log in object
                         else:
                             return 2
                     else:
+                        messagebox.showinfo("Log In", "3.0")
                         return False
                 else:
+                    messagebox.showinfo("Log In", "3.1")
                     return False
             else:
+                messagebox.showinfo("Log In", "3.2")
                 return False
         except:
             return False
@@ -89,6 +91,7 @@ class CLS_LogIn():  # create log in object
                     OBJ_admin = CLS_AdminMenu()
                 elif self.mt_login() == 2:
                     messagebox.showinfo("Log In", "You have successfully logged in as a user")
+                    self.root.destroy()
                     OBJ_menu = CLS_Menu()
 
                 else:

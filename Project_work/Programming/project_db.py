@@ -1,4 +1,5 @@
 import sqlite3
+from tkinter import messagebox
 
 class CLS_db():
     def __init__(self):
@@ -35,24 +36,27 @@ class CLS_db():
     def mt_user_exists(self, givenUser):
         try:
             conn = sqlite3.connect('accounts')
-            cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
+            cursor = conn.execute(''' SELECT UserName FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser:
                     return True
                 else:
+                    # messagebox.showinfo("Log In", "User does not exist")
                     return False
         except:
             return False
         
     def mt_password_correct(self, givenUser, givenPassword):
+        found = False
         try:
             conn = sqlite3.connect('accounts')
             cursor = conn.execute(''' SELECT UserName, password FROM  USERS ''')
             for row in cursor:
                 if row[0] == givenUser and row[1] == givenPassword:
-                    return True
+                    found = True
                 else:
-                    return False
+                    pass
+            return found
         except:
             return False
 
