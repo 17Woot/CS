@@ -1,10 +1,5 @@
 import math
 import numpy as np
-import pygame
-import sys
-import time
-import random
-from pygame.locals import *
 import matplotlib.pyplot as plt
 
 
@@ -57,6 +52,7 @@ def spring(start, end, nodes, width):
 # function to draw spring in pygame window using spring function co ordinates
 
 if __name__ == "__main__":
+
 
 
 

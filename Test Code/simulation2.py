@@ -1,8 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import matplotlib
-matplotlib.use('GTK3Agg')
+
 
 k = 1
 m = 1
