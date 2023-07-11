@@ -57,12 +57,6 @@ def spring(start, end, nodes, width):
 # function to draw spring in pygame window using spring function co ordinates
 
 if __name__ == "__main__":
-    point_a = (1, 1.5)
-    point_b = (8.1, 6)
 
-    fig, ax = plt.subplots()
-    ax.plot(*spring(point_a, point_b, 12, 1.2), c="black")
-    ax.set_aspect("equal", "box")
-    plt.show()
 
 
