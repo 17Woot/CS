@@ -52,6 +52,18 @@ def spring(start, end, nodes, width):
 # function to draw spring in pygame window using spring function co ordinates
 
 if __name__ == "__main__":
+    # Test spring function.
+    start = np.array([0, 0])
+    end = np.array([10, 0])
+    nodes = 10
+    width = 1
+    x, y = spring(start, end, nodes, width)
+    print(x)
+    print(y)
+    plt.plot(x, y)
+    plt.show()
+
+    
 
 
 
