@@ -1,70 +1,42 @@
-import math
 import numpy as np
+from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 
+# initialisation
+tstart = 0.0
+tstop = 60.0
+increment = 0.1
 
-def spring(start, end, nodes, width):
-    """!
-    Return a list of points corresponding to a spring.
+# initial conditions
+x_init = [0,0]
 
-    @param r1 (array-like) The (x, y) coordinates of the first endpoint.
-    @param r2 (array-like) The (x, y) coordinates of the second endpoint.
-    @param nodes (int) The number of spring "nodes" or coils.
-    @param width (int or float) The diameter of the spring.
-    @return An array of x coordinates and an array of y coordinates.
-    """
+t  = np.arange(tstart, tstop+1, increment)
 
-    # Check that nodes is at least 1.
-    nodes = max(int(nodes), 1)
+# Function that returns dx/dt 
+def mydiff(x, t):
+    c = 4 # damping constant
+    k = 2 # spring constant
+    m = 20 # mass
+    F = 5 # external force
 
-    # Convert to numpy array to account for inputs of different types/shapes.
-    start, end = np.array(start).reshape((2,)), np.array(end).reshape((2,))
+    dx1dt = x[1]
+    dx2dt = (F - c*x[1] - k*x[0])/m
 
-    # If both points are coincident, return the x and y coords of one of them.
-    if (start == end).all():
-        return start[0], start[1]
+    dxdt = [dx1dt, dx2dt]
+    return dxdt
 
-    # Calculate length of spring (distance between endpoints).
-    length = np.linalg.norm(np.subtract(end, start))
+# solve ODE
+x = odeint(mydiff, x_init, t)
 
-    # Calculate unit vectors tangent (u_t) and normal (u_t) to spring.
-    u_t = np.subtract(end, start) / length
-    u_n = np.array([[0, -1], [1, 0]]).dot(u_t)
+x1 = x[:,0]
+x2 = x[:,1]
 
-    # Initialize array of x (row 0) and y (row 1) coords of the nodes+2 points.
-    spring_coords = np.zeros((2, nodes + 2))
-    spring_coords[:,0], spring_coords[:,-1] = start, end
-
-    # Check that length is not greater than the total length the spring
-    # can extend (otherwise, math domain error will result), and compute the
-    # normal distance from the centerline of the spring.
-    normal_dist = math.sqrt(max(0, width**2 - (length**2 / nodes**2))) / 2
-
-    # Compute the coordinates of each point (each node).
-    for i in range(1, nodes + 1):
-        spring_coords[:,i] = (
-            start
-            + ((length * (2 * i - 1) * u_t) / (2 * nodes))
-            + (normal_dist * (-1)**i * u_n))
-
-    return spring_coords[0,:], spring_coords[1,:]
-
-# function to draw spring in pygame window using spring function co ordinates
-
-if __name__ == "__main__":
-    # Test spring function.
-    start = np.array([0, 0])
-    end = np.array([10, 0])
-    nodes = 10
-    width = 1
-    x, y = spring(start, end, nodes, width)
-    print(x)
-    print(y)
-    plt.plot(x, y)
-    plt.show()
-
-    
-
-
-
-
+# plot results
+plt.plot(t,x1)
+plt.plot(t,x2)
+plt.title('Mass-Spring-Damper System')
+plt.xlabel('time')
+plt.ylabel('x(t)')
+plt.legend(['x1(t)=position','x2(t)=velocity'],loc='best')
+plt.grid()
+plt.show()
