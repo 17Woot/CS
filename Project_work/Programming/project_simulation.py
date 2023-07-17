@@ -2,20 +2,28 @@ import pygame
 from pygame.locals import *
 import numpy as np
 from scipy.integrate import odeint
-import tkinter as tk
-from tkinter import ttk
 
-class CLS_Simulation:
-    def __init__(self):
+
+    
+
+
+
+class CLS_Simulation():
+    def __init__(self, c, k, m, f):
+        # Simulation parameters
         self.tstart = 0.0
         self.tstop = 100
-        self.increment = 0.03
+        self.increment = 0.1
 
+        # Initial conditions
         self.x_init = [0, 0]
+
+        # Simulation variables
         self.x1 = None
         self.x2 = None
         self.current_time_step = 0
 
+        # Pygame initialization
         pygame.init()
         self.width, self.height = 800, 600
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -24,11 +32,13 @@ class CLS_Simulation:
 
         self.scaling_factor = 100
 
+        self.run_simulation
+
     def mydiff(self, x, t):
-        c = self.c_slider.get()
-        k = self.k_slider.get()
-        m = self.m_slider.get()
-        F = self.F_slider.get()
+        c = self.c  # damping constant
+        k = self.k  # spring constant
+        m = self.m  # mass
+        F = self.f  # external force
 
         dx1dt = x[1]
         dx2dt = (F - c * x[1] - k * x[0]) / m
@@ -36,13 +46,8 @@ class CLS_Simulation:
         dxdt = [dx1dt, dx2dt]
         return dxdt
 
-    def set_variables(self, c, k, m, F):
-        self.c_slider.set(c)
-        self.k_slider.set(k)
-        self.m_slider.set(m)
-        self.F_slider.set(F)
-
     def run_simulation(self):
+        # Solve ODE
         t = np.arange(self.tstart, self.tstop + 1, self.increment)
         x = odeint(self.mydiff, self.x_init, t)
 
@@ -89,34 +94,10 @@ class CLS_Simulation:
         spring_width = 5
         pygame.draw.line(self.screen, spring_color, spring_start, spring_end, spring_width)
 
-class MenuWindow(tk.Tk):
-    def __init__(self, simulation):
-        super().__init__()
-        self.title("Simulation Variables")
+    def start(self):
+        self.run_simulation()
 
-        self.simulation = simulation
 
-        self.c_slider = self.create_slider("Damping Constant (c):", 0, 10)
-        self.k_slider = self.create_slider("Spring Constant (k):", 0, 10)
-        self.m_slider = self.create_slider("Mass (m):", 0, 10)
-        self.F_slider = self.create_slider("External Force (F):", 0, 10)
-
-        self.start_button = ttk.Button(self, text="Start", command=self.start_simulation)
-        self.start_button.pack()
-
-    def create_slider(self, label_text, from_, to):
-        label = ttk.Label(self, text=label_text)
-        label.pack()
-
-        slider = ttk.Scale(self, from_=from_, to=to, length=200, orient=tk.HORIZONTAL)
-        slider.pack()
-
-        return slider
-
-    def start_simulation(self):
-        self.withdraw()
-        self.simulation.run_simulation()
-
-simulation = CLS_Simulation()
-menu_window = MenuWindow(simulation)
-menu_window.mainloop()
+# Create an instance of the MassSpringDamperSimulation class
+if __name__ == "__main__":
+    pass

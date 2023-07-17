@@ -4,8 +4,8 @@ import numpy as np
 from scipy.integrate import odeint
 
 tstart = 0.0
-tstop = 60.0
-increment = 0.01
+tstop = 100
+increment = 0.03
 
 # initial conditions
 x_init = [0,0]
@@ -44,8 +44,8 @@ scaling_factor = 100  # Adjust the scaling factor as needed
 running = True
 while running:
     for event in pygame.event.get():
-        if event.type == QUIT:
-            running = False
+            if event.type == QUIT:
+                running = False
 
     # Simulation logic
     
@@ -62,7 +62,7 @@ while running:
     # For example, you can apply user inputs, external forces, or modify the system parameters dynamically.
 
     # Calculate the next state of the system using the provided differential equation
-    next_position, next_velocity = mydiff([current_position, current_velocity], 0)
+    next_position, next_velocity = mydiff([current_position, current_velocity], 0) 
 
     # Update the arrays (optional)
     x1 = np.append(x1, next_position)
@@ -93,6 +93,8 @@ while running:
 
     # Update the screen
     pygame.display.update()
+
+
 
 
 
