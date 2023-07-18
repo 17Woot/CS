@@ -3,11 +3,6 @@ from pygame.locals import *
 import numpy as np
 from scipy.integrate import odeint
 
-
-    
-
-
-
 class CLS_Simulation():
     def __init__(self, c, k, m, f):
         # Simulation parameters
@@ -22,6 +17,11 @@ class CLS_Simulation():
         self.x1 = None
         self.x2 = None
         self.current_time_step = 0
+        self.c = c
+        self.k = k
+        self.m = m
+        self.f = f
+        
 
         # Pygame initialization
         pygame.init()
@@ -32,13 +32,8 @@ class CLS_Simulation():
 
         self.scaling_factor = 100
 
-        self.run_simulation
 
-    def mydiff(self, x, t):
-        c = self.c  # damping constant
-        k = self.k  # spring constant
-        m = self.m  # mass
-        F = self.f  # external force
+    def mydiff(self, x, t, c , k, m, F):
 
         dx1dt = x[1]
         dx2dt = (F - c * x[1] - k * x[0]) / m
@@ -49,7 +44,7 @@ class CLS_Simulation():
     def run_simulation(self):
         # Solve ODE
         t = np.arange(self.tstart, self.tstop + 1, self.increment)
-        x = odeint(self.mydiff, self.x_init, t)
+        x = odeint(self.mydiff, self.x_init, t, args=(self.c, self.k, self.m, self.f))  # Pass the arguments
 
         self.x1 = x[:, 0]
         self.x2 = x[:, 1]

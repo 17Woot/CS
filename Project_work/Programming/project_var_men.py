@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 from project_simulation import CLS_Simulation
-import threading
+
 
 class CLS_Var_window(): # This class is used to create a window for the variables
     def __init__(self):
@@ -81,15 +81,14 @@ class CLS_Var_window(): # This class is used to create a window for the variable
         self.f = self.f_val.get()
 
         
-        sim_thread = threading.Thread(target=self.start_simulation)
-        sim_thread.start()
+        self.start_simulation()
 
         self.root.destroy()
 
 
     def start_simulation(self):
         self.sim = CLS_Simulation(self.c, self.k, self.m, self.f)
-        self.sim.run_simulation()
+        self.sim.run()
         
 
         
@@ -102,3 +101,4 @@ class CLS_Var_window(): # This class is used to create a window for the variable
 
 if __name__ == "__main__":
     OBJ = CLS_Var_window()
+    OBJ.root.mainloop()
