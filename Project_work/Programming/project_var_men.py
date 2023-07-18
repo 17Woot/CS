@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 from project_simulation import CLS_Simulation
+import threading
 
 class CLS_Var_window(): # This class is used to create a window for the variables
     def __init__(self):
@@ -67,7 +68,7 @@ class CLS_Var_window(): # This class is used to create a window for the variable
 
 
 
-        self.btn_start = ctk.CTkButton(self.root, text="Start", command=lambda: self.mt_run)
+        self.btn_start = ctk.CTkButton(self.root, text="Start", command=lambda: self.mt_run())
         self.btn_start.configure(font=ctk.CTkFont(size=20))
         self.btn_start.grid(row=4, column=0)
 
@@ -79,9 +80,16 @@ class CLS_Var_window(): # This class is used to create a window for the variable
         self.m = self.m_val.get()
         self.f = self.f_val.get()
 
-        self.sim = CLS_Simulation(self.c, self.k, self.m, self.f)
+        
+        sim_thread = threading.Thread(target=self.start_simulation)
+        sim_thread.start()
+
         self.root.destroy()
 
+
+    def start_simulation(self):
+        self.sim = CLS_Simulation(self.c, self.k, self.m, self.f)
+        self.sim.run_simulation()
         
 
         
