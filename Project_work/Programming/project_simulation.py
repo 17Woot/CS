@@ -14,8 +14,8 @@ class CLS_Simulation():
         self.x_init = [0, 0]
 
         # Simulation variables
-        self.x1 = None
-        self.x2 = None
+        self.x1 = None # position
+        self.x2 = None # velocity
         self.current_time_step = 0
         self.c = c
         self.k = k
@@ -41,7 +41,7 @@ class CLS_Simulation():
         dxdt = [dx1dt, dx2dt]
         return dxdt
 
-    def run_simulation(self):
+    def run(self):
         # Solve ODE
         t = np.arange(self.tstart, self.tstop + 1, self.increment)
         x = odeint(self.mydiff, self.x_init, t, args=(self.c, self.k, self.m, self.f))  # Pass the arguments
@@ -89,8 +89,7 @@ class CLS_Simulation():
         spring_width = 5
         pygame.draw.line(self.screen, spring_color, spring_start, spring_end, spring_width)
 
-    def start(self):
-        self.run_simulation()
+    
 
 
 # Create an instance of the MassSpringDamperSimulation class
