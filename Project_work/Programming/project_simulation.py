@@ -7,8 +7,8 @@ class CLS_Simulation():
     def __init__(self, c, k, m, f):
         # Simulation parameters
         self.tstart = 0.0
-        self.tstop = 100
-        self.increment = 0.1
+        self.tstop = 10
+        self.increment = 0.2
 
         # Initial conditions
         self.x_init = [0, 0]
@@ -33,7 +33,11 @@ class CLS_Simulation():
         self.scaling_factor = 100
 
 
-    def mydiff(self, x, t, c , k, m, F):
+    def mydiff(self, x, t):
+        c = self.c
+        k = self.k
+        m = self.m
+        F = self.f
 
         dx1dt = x[1]
         dx2dt = (F - c * x[1] - k * x[0]) / m
@@ -44,7 +48,7 @@ class CLS_Simulation():
     def run(self):
         # Solve ODE
         t = np.arange(self.tstart, self.tstop + 1, self.increment)
-        x = odeint(self.mydiff, self.x_init, t, args=(self.c, self.k, self.m, self.f))  # Pass the arguments
+        x = odeint(self.mydiff, self.x_init, t)  # Pass the arguments
 
         self.x1 = x[:, 0]
         self.x2 = x[:, 1]
@@ -59,7 +63,7 @@ class CLS_Simulation():
             self.draw()
 
             pygame.display.update()
-            self.clock.tick(120)
+            self.clock.tick(60)
 
         pygame.quit()
 
@@ -74,6 +78,7 @@ class CLS_Simulation():
 
             self.x1 = np.append(self.x1, next_position)
             self.x2 = np.append(self.x2, next_velocity)
+        
 
     def draw(self):
         self.screen.fill((255, 255, 255))
@@ -94,4 +99,5 @@ class CLS_Simulation():
 
 # Create an instance of the MassSpringDamperSimulation class
 if __name__ == "__main__":
-    pass
+    sim = CLS_Simulation(0.5, 1, 10, 1)
+    sim.run()
