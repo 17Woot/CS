@@ -2,64 +2,42 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-class MassSpringDamper:
-    def __init__(self, mass, spring_constant, damping_coefficient):
-        self.mass = mass
-        self.spring_constant = spring_constant
-        self.damping_coefficient = damping_coefficient
+def hooke_law_spring_force(k, x):
+    return -k * x
 
-        self.position = 0.0
-        self.velocity = 0.0
-
-    def update(self, force, delta_time):
-        acceleration = (force - self.damping_coefficient * self.velocity - self.spring_constant * self.position) / self.mass
-        self.velocity += acceleration * delta_time
-        self.position += self.velocity * delta_time
-
-# Simulation parameters
-mass = 1.0         # Mass of the object (kg)
-spring_constant = 10.0  # Spring constant (N/m)
-damping_coefficient = 0.5  # Damping coefficient (Ns/m)
-initial_position = 1.0  # Initial position of the mass (m)
-initial_velocity = 0.0  # Initial velocity of the mass (m/s)
-
-# Create the mass-spring-damper system
-system = MassSpringDamper(mass, spring_constant, damping_coefficient)
-system.position = initial_position
-system.velocity = initial_velocity
-
-# Set up the plot
-fig, ax = plt.subplots()
-line, = ax.plot([], [], lw=2)
-ax.set_xlim(0, 10)
-ax.set_ylim(-2, 2)
-ax.set_xlabel('Time (s)')
-ax.set_ylabel('Position (m)')
-ax.set_title('Mass-Spring-Damper System Animation')
-ax.grid(True)
-
-# Lists to store the results
-positions = []
-times = []
-
-# Animation update function
 def update(frame):
-    global system
-    force = 0.0  # You can apply external forces here if needed
+    mass_position = amplitude * np.sin(frame * angular_frequency)
+    spring_force = hooke_law_spring_force(spring_constant, mass_position)
 
-    system.update(force, 0.01)
-    positions.append(system.position)
-    times.append(frame * 0.01)
+    mass.set_ydata(mass_position)
+    force_arrow.set_positions((0, mass_position), (0, mass_position - spring_force))
 
-    line.set_data(times, positions)
-    return line,
+    return mass, force_arrow,
 
-# Animation initialization function
-def init():
-    line.set_data([], [])
-    return line,
+if __name__ == "__main__":
+    spring_constant = 1.0
+    mass = 1.0
+    angular_frequency = 0.1
+    amplitude = 2.0
 
-# Create the animation
-ani = FuncAnimation(fig, update, frames=range(1000), init_func=init, blit=True, interval=10)
+    x_values = np.linspace(-amplitude - 1, amplitude + 1, 100)
+    force_values = hooke_law_spring_force(spring_constant, x_values)
 
-plt.show()
+    fig, ax = plt.subplots()
+    ax.set_xlim(-amplitude - 1, amplitude + 1)
+    ax.set_ylim(-amplitude - 1, amplitude + 1)
+
+    spring, = ax.plot([0, 0], [0, 0], lw=2, color='b')
+    mass, = ax.plot(0, 0, 'ro', markersize=10)
+    force_arrow = ax.arrow(0, 0, 0, 0, width=0.05, color='g', head_width=0.2, head_length=0.1)
+
+    spring.set_xdata([0, 0])
+    spring.set_ydata([amplitude, -amplitude])
+
+    animation = FuncAnimation(fig, update, frames=np.arange(0, 100), interval=50, blit=True)
+
+    plt.xlabel("Displacement (x)")
+    plt.ylabel("Position")
+    plt.title("Hooke's Law Animation")
+    plt.grid()
+    plt.show()
