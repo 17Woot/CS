@@ -77,7 +77,7 @@ class Simulation:
 
 if __name__ == "__main__":
     gravity = 9.81
-    spring_constant = 40
+    spring_constant = 20
     mass = 10
     friction = 1
 

@@ -24,9 +24,11 @@ class Simulation:
         self.spring_length = 200
         self.mass_radius = 20
         self.start_time = pygame.time.get_ticks()
+        self.velocity_timer = 0  # Timer to track how long velocity remains close to zero
+        self.velocity_threshold = 0.01  # Define a threshold close to zero for the velocity
 
-        sol = solve_ivp(self.spring_mass_friction_ODE, [0, 10], (self.x0, self.x_dot0),
-                        t_eval=np.linspace(0, 10, 1000))
+        sol = solve_ivp(self.spring_mass_friction_ODE, [0, 100], (self.x0, self.x_dot0),
+                        t_eval=np.linspace(0, 100, 1000))
 
         self.x, self.x_dot = sol.y
         self.t = sol.t
@@ -52,9 +54,6 @@ class Simulation:
             current_time = pygame.time.get_ticks()
             elapsed_time = (current_time - self.start_time) / 1000.0  # Convert to seconds
 
-            if elapsed_time >= 10:
-                self.running = False  # End the simulation after 10 seconds
-
             self.screen.fill((255, 255, 255))
 
             # Interpolate mass position
@@ -69,6 +68,16 @@ class Simulation:
             mass_pos = (self.width // 2, y + self.mass_radius)
             pygame.draw.circle(self.screen, (0, 0, 0), mass_pos, self.mass_radius)
 
+            # Check if velocity is close to zero and update the timer
+            if abs(self.x_dot[-1]) < self.velocity_threshold:
+                self.velocity_timer += self.clock.get_time() / 1000.0
+            else:
+                self.velocity_timer = 0  # Reset the timer if velocity is not close to zero
+
+            # If velocity remains close to zero for 2 seconds, end the simulation
+            if self.velocity_timer >= 2:
+                self.running = False
+
             pygame.display.flip()
 
             self.clock.tick(60)  # Set the desired frame rate
@@ -78,8 +87,8 @@ class Simulation:
 if __name__ == "__main__":
     gravity = 9.81
     spring_constant = 20
-    mass = 10
-    friction = 1
+    mass = 2
+    friction = 0.8
 
     sim = Simulation(gravity=gravity, spring_constant=spring_constant, mass=mass, friction=friction)
     sim.run()
