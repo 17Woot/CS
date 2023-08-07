@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 from project_db import CLS_db
 from project_validation import CLS_Validator
-from project_simulation import CLS_Simulation
 import customtkinter as ctk
+from project_var_men import CLS_Var_window
 
 # main menu for normal users
 class CLS_Menu():
@@ -38,8 +38,8 @@ class CLS_Menu():
 
     def mt_start_pressed(self):
         self.root.destroy()
-        OBJ_Sim = CLS_Simulation()
-        OBJ_Sim.start()
+        menu_object = CLS_Var_window()
+        
         
 
 

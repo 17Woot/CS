@@ -78,7 +78,7 @@ class Simulation:
 if __name__ == "__main__":
     gravity = 9.81
     spring_constant = 15
-    mass = 5
+    mass = 20
     friction = 0.5
 
     sim = Simulation(gravity=gravity, spring_constant=spring_constant, mass=mass, friction=friction)

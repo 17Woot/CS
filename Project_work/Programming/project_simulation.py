@@ -2,7 +2,8 @@ import pygame
 import numpy as np
 from scipy.integrate import solve_ivp
 
-class Simulation:
+
+class CLS_Simulation():
     def __init__(self, gravity=9.81, spring_constant=40, mass=1, friction=1):
         # System parameters
         self.g = gravity
@@ -47,6 +48,8 @@ class Simulation:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                    
+
 
             # Calculate elapsed time
             current_time = pygame.time.get_ticks()
@@ -74,6 +77,8 @@ class Simulation:
             self.clock.tick(60)  # Set the desired frame rate
 
         pygame.quit()
+        from project_var_men import CLS_Var_window
+        variable_window = CLS_Var_window()
 
 if __name__ == "__main__":
     gravity = 9.81
@@ -81,5 +86,5 @@ if __name__ == "__main__":
     mass = 10
     friction = 1
 
-    sim = Simulation(gravity=gravity, spring_constant=spring_constant, mass=mass, friction=friction)
+    sim = CLS_Simulation(gravity=gravity, spring_constant=spring_constant, mass=mass, friction=friction)
     sim.run()

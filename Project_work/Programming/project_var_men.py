@@ -1,6 +1,6 @@
 import customtkinter as ctk
 import tkinter as tk
-from project_simulation import Simulation
+from project_simulation import CLS_Simulation
 
 
 class CLS_Var_window(): # This class is used to create a window for the variables
@@ -95,7 +95,7 @@ class CLS_Var_window(): # This class is used to create a window for the variable
         spring_constant = self.k_slider.get()
         mass = self.m_slider.get()
         friction = self.c_slider.get()
-        Sim_object = Simulation(gravity, spring_constant, mass, friction)
+        Sim_object = CLS_Simulation(gravity, spring_constant, mass, friction)
         Sim_object.run()
         
 
