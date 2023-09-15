@@ -34,17 +34,15 @@ class CLS_LogIn():  # create log in object
         self.title_label.pack(padx=10, pady=(20, 20))
         self.title_label.configure(bg=self.dark, fg="white")
 
-        self.username_label = Label(self.frame1, text="Username:", font=ctk.CTkFont(size=20))
-        self.username_label.pack(padx=10, pady=(20, 10))
 
-        self.username_entry = Entry(self.frame1, width=20, font=ctk.CTkFont(size=20))
-        self.username_entry.pack(padx=10, pady=(0, 10))
 
-        self.password_label = Label(self.frame1, text="Password:", font=ctk.CTkFont(size=20))
-        self.password_label.pack(padx=10, pady=(10, 10))
+        self.username = StringVar()
+        self.username_label = Label(self.frame1, text="Username", font=ctk.CTkFont(size=20)).pack(padx=10, pady=(10, 10))
+        self.username_entry = Entry(self.frame1, textvariable=self.username, font=ctk.CTkFont(size=20)).pack(padx=10, pady=(10, 10))
 
-        self.password_entry = Entry(self.frame1, width=20, font=ctk.CTkFont(size=20), show="*")
-        self.password_entry.pack(padx=10, pady=(0, 10))
+        self.password = StringVar()
+        self.password_label = Label(self.frame1, text="Password", font=ctk.CTkFont(size=20)).pack(padx=10,pady=(10, 10))
+        self.password_entry = Entry(self.frame1, textvariable=self.password, font=ctk.CTkFont(size=20)).pack(padx=10,pady=(10, 10))
 
         self.btn_login = Button(self.frame1, width=10, text="Log In", font=ctk.CTkFont(size=20), command=lambda: self.mt_login_pressed())
         #self.btn_login.configure(bg="white", fg="black",)
@@ -60,8 +58,8 @@ class CLS_LogIn():  # create log in object
 
     def mt_login(self):
         try:
-            user = self.username_entry.get()
-            password = self.password_entry.get()
+            user = self.username
+            password = self.password
             if self.validator.mt_is_valid_length_range(user, 5, 20) and self.validator.mt_is_valid_length_range(
                     password, 5, 20):  # if username and password are valid
                 if self.db.mt_user_exists(user):
